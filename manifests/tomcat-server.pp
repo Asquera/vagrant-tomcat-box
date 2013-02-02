@@ -1,3 +1,23 @@
+node default {
+   include base
+}
+
+class base {
+   yumrepo { "remi":
+      baseurl => "http://rpms.famillecollet.com/enterprise/$operatingsystemrelease/remi/$architecture/",
+      descr => "Les RPM de remi pour Fedora $operatingsystemrelease - $architecture",
+      enabled => 1,
+      gpgcheck => 1,
+      gpgkey => "http://rpms.famillecollet.com/RPM-GPG-KEY-remi"
+   }
+   yumrepo { "EPEL":
+     baseurl => "http://dl.fedoraproject.org/pub/epel/6/$architecture/",
+     descr => "The EPEL repository",
+     enabled => "1",
+     gpgcheck => "0"
+   }
+}
+
 class requirements {
   include sysconfig
   include sysconfig::sudoers
@@ -67,6 +87,7 @@ class doinstall {
   include projects
   include installrvm
   include java::jdk
+  include redis::server
 
   class { requirements: stage => 'requirementsstage' }
 
@@ -75,5 +96,3 @@ class doinstall {
 
 # start and set up everything
 include doinstall
-
-
