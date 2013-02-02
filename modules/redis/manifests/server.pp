@@ -11,7 +11,10 @@ class redis::server {
 
   package { 'redis':
     ensure => '2.6.9-1.el6.remi',
-    require => [Yumrepo["remi"], Package['gperftools-libs']]
+    require => [Yumrepo["remi"], Package['gperftools-libs']],
+    notify => Service['redis']
+  } -> service { 'redis':
+    ensure => running
   }
 
 }
