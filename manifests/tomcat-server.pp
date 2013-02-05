@@ -68,10 +68,11 @@ class doinstall {
   include installrvm
   include java::jdk
   include tomcat7
+  include oracle-xe
 
   class { requirements: stage => 'requirementsstage' }
 
-  Class['java::jdk'] -> Class['tomcat7'] -> Class['installrvm'] -> Class['projects']
+  Class['java::jdk'] -> Class['oracle-xe'] -> Class['tomcat7'] -> Class['installrvm'] -> Class['projects']
 }
 
 # start and set up everything
