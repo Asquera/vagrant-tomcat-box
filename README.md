@@ -5,7 +5,8 @@ A vagrant box to develop in jruby/tomcat.
 
 ## Java-Installation
 
-Since oracle requires to accept the java TOS, you need to download the jre and place it in
+Since oracle requires to accept the java TOS, you need to download the jre from
+http://www.oracle.com/technetwork/java/javase/downloads/index.html  and place it in
 `modules/java/files/rpms`.
 
 ## Box-Setup
