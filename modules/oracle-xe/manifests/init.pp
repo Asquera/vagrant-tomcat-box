@@ -75,8 +75,7 @@ class oracle-xe {
     }
 
     exec { 'add-users':
-      command => "/u01/app/oracle/product/11.2.0/xe/bin/sqlplus system/manager@//localhost:1521/xe
-@/root/grants.sql",
+      command => "/u01/app/oracle/product/11.2.0/xe/bin/sqlplus system/manager@//localhost:1521/xe @/root/grants.sql",
       environment => "ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe/",
       require => [File["/root/grants.sql"], Exec['configure-xe']]
     } 
