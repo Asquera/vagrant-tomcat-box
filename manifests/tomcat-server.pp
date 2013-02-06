@@ -75,6 +75,14 @@ class doinstall {
   Class['java::jdk'] -> Class['oracle-xe'] -> Class['tomcat7'] -> Class['installrvm'] -> Class['projects']
 }
 
+  # disable the firewall
+  service {"iptables":
+    ensure => stopped
+  }
+  
+  service {"ip6tables":
+    ensure => stopped
+  }
 # start and set up everything
 include doinstall
 
