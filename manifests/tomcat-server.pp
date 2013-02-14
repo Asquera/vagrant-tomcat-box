@@ -30,18 +30,18 @@ class dbsetup {
   }
 
   postgresql::db { "production":
-    user => "rails",
-    password => "rails",
+    user => "vagrant",
+    password => "vagrant",
   }
 
   postgresql::db { "development":
-    user => "rails",
-    password => "rails"
+    user => "vagrant",
+    password => "vagrant"
   }
 
   postgresql::db { "test":
-    user => "rails",
-    password => "rails"
+    user => "vagrant",
+    password => "vagrant"
   }
 }
 
