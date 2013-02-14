@@ -20,6 +20,15 @@ class base {
 
 class dbsetup {
 
+  postgresql::pg_hba_rule { 'local md5 auth':
+    description => "Allow local users to identify with md5",
+    type => 'local',
+    database => 'all',
+    user => 'all',
+    auth_method => 'md5',
+    order => 0
+  }
+
   postgresql::db { "production":
     user => "rails",
     password => "rails",
