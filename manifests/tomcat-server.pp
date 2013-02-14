@@ -16,6 +16,47 @@ class base {
      enabled => "1",
      gpgcheck => "0"
    }
+
+}
+
+class { 'postgresql::params':
+  version => "9.2",
+  manage_package_repo => true
+}
+
+class dbsetup {
+
+  package { "postgresql92-devel":
+    ensure => present
+  }
+
+  package { "postgresql92-contrib":
+    ensure => present
+  }
+
+  postgresql::pg_hba_rule { 'local md5 auth':
+    description => "Allow local users to identify with md5",
+    type => 'local',
+    database => 'all',
+    user => 'all',
+    auth_method => 'md5',
+    order => 0
+  }
+
+  postgresql::db { "production":
+    user => "vagrant",
+    password => "vagrant",
+  }
+
+  postgresql::db { "development":
+    user => "vagrant",
+    password => "vagrant"
+  }
+
+  postgresql::db { "test":
+    user => "vagrant",
+    password => "vagrant"
+  }
 }
 
 class requirements {
@@ -90,7 +131,9 @@ class doinstall {
   include tomcat7
   include oracle-xe
   include redis::server
-
+  include postgresql::server
+  include dbsetup
+  
   class { requirements: stage => 'requirementsstage' }
 
   Class['java::jdk'] -> Class['oracle-xe'] -> Class['tomcat7'] -> Class['installrvm'] -> Class['projects']
