@@ -19,47 +19,20 @@ class base {
 }
 
 class dbsetup {
-  postgresql::database_user { "rails":
-    password => "rails"
-  }
 
   postgresql::db { "production":
     user => "rails",
     password => "rails",
-    require => Postgresql::Database_user["rails"]
   }
 
   postgresql::db { "development":
     user => "rails",
-    password => "rails",
-    require => Postgresql::Database_user["rails"]
+    password => "rails"
   }
 
   postgresql::db { "test":
     user => "rails",
-    password => "rails",
-    require => Postgresql::Database_user["rails"]
-  }
-
-  postgresql::database_grant { "production_privileges":
-    privilege => "ALL",
-    db => "production",
-    role => "rails",
-    require => Postgresql::Db["production"]
-  }
-
-  postgresql::database_grant { "development_privileges":
-    privilege => "ALL",
-    db => "development",
-    role => "rails",
-    require => Postgresql::Db["development"]
-  }
-
-  postgresql::database_grant { "test_privileges":
-    privilege => "ALL",
-    db => "test",
-    role => "rails",
-    require => Postgresql::Db["test"]
+    password => "rails"
   }
 }
 
