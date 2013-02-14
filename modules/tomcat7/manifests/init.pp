@@ -23,5 +23,7 @@ class tomcat7 {
     ensure => running,
     require => [Package['tomcat7']]
   }
-  
+   
 }
+
+Class['java::jdk'] -> Class['tomcat7']

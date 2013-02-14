@@ -55,7 +55,7 @@ class oracle-xe {
     package {"$orapkg":
       source  => "/root/$orapkg.rpm",
       ensure  => installed,
-      require => [File["/root/$orapkg.rpm"], Package['bc'], Package["libaio"]],
+      require => [File["/root/$orapkg.rpm"], Package['bc'], Package["libaio"], Class['java::jdk']],
       provider => "rpm", # the yum provider can't install from file.
     }
 

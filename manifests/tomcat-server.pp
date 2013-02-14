@@ -1,3 +1,19 @@
+class doinstall {
+
+  package {"vim-enhanced":
+    ensure => installed
+  }
+
+  include installrvm
+  include java::jdk
+  include tomcat7
+  include oracle-xe
+  include redis::server
+
+  class { requirements: stage => 'requirementsstage' }
+ 
+}
+
 node default {
    include base
 }
@@ -62,40 +78,14 @@ class installrvm {
 
   rvm_system_ruby { $rubyversion:
     ensure => 'present',
-    default_use => true;
+    default_use => true,
   }
 }
 
-class projects {
-  # set permissions on dev directory where all projects reside
-  file { "/home/vagrant/dev":
-    ensure => 'directory',
-    owner  => 'vagrant',
-    group  => 'vagrant',
-    mode   => 750
-  }
-}
+Class['java::jdk'] -> Class['installrvm'] 
 
 stage { 'requirementsstage': before => Stage['main'] }
-
-class doinstall {
-
-  package {"vim-enhanced":
-    ensure => installed
-  }
-
-  include projects
-  include installrvm
-  include java::jdk
-  include tomcat7
-  include oracle-xe
-  include redis::server
-
-  class { requirements: stage => 'requirementsstage' }
-
-  Class['java::jdk'] -> Class['oracle-xe'] -> Class['tomcat7'] -> Class['installrvm'] -> Class['projects']
-}
-
+  
   # disable the firewall
   service {"iptables":
     ensure => stopped
