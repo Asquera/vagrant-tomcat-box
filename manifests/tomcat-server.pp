@@ -30,6 +30,10 @@ class dbsetup {
     ensure => present
   }
 
+  package { "postgresql92-contrib":
+    ensure => present
+  }
+
   postgresql::pg_hba_rule { 'local md5 auth':
     description => "Allow local users to identify with md5",
     type => 'local',
