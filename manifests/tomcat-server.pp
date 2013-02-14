@@ -17,16 +17,15 @@ class base {
      gpgcheck => "0"
    }
 
-   package { "pgdg-centos92":
-     ensure => present,
-     provider => "rpm",
-     source => "http://yum.postgresql.org/9.2/redhat/rhel-6-x86_64/pgdg-centos92-9.2-6.noarch.rpm"
-   }
+}
 
+class { 'postgresql::params':
+  version => "9.2",
+  manage_package_repo => true
 }
 
 class dbsetup {
-  
+
   postgresql::pg_hba_rule { 'local md5 auth':
     description => "Allow local users to identify with md5",
     type => 'local',
