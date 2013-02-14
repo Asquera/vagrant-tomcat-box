@@ -26,6 +26,11 @@ class { 'postgresql::params':
 
 class dbsetup {
 
+  # This package contains the hstore module
+  package { "postgresql92-contrib":
+    ensure => installed
+  }
+
   postgresql::pg_hba_rule { 'local md5 auth':
     description => "Allow local users to identify with md5",
     type => 'local',
