@@ -93,7 +93,7 @@ class installrvm {
   include rvm
 
   # ruby version to use
-  $rubyversion = 'jruby'
+  $rubyversion = 'ruby-1.9.3'
 
   Exec {
     path => [ "/bin/", "/sbin/", "/usr/bin/", "/usr/sbin/", "/usr/local/rvm/bin" ]
@@ -128,15 +128,13 @@ class doinstall {
   include projects
   include installrvm
   include java::jdk
-  include tomcat7
-  include oracle-xe
   include redis::server
   include postgresql::server
   include dbsetup
   
   class { requirements: stage => 'requirementsstage' }
 
-  Class['java::jdk'] -> Class['oracle-xe'] -> Class['tomcat7'] -> Class['installrvm'] -> Class['projects']
+  Class['java::jdk'] -> Class['installrvm'] -> Class['projects']
 }
 
   # disable the firewall
