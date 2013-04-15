@@ -7,7 +7,7 @@ define ssh::user($user = "${name}", $home = "/home/${name}") {
     ensure => present,
     content => template("ssh/user/known_hosts.erb"),
     owner => $user,
-    mode => "0420"
+    mode => "0620"
   }
   
 }
