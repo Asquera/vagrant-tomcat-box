@@ -3,7 +3,7 @@ class tomcat7 {
   
   package { "tomcat7":
     ensure => installed,
-    require => [Yumrepo['jpackage']]
+    require => [Yumrepo['jpackage-6.0-generic']]
   } -> file { "/var/log/tomcat7":
     ensure => directory,
     mode => 0775,
